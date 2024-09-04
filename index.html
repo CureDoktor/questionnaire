@@ -1,0 +1,911 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+  <head>
+    <title>SBLS / SBLA 2015</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <meta name="google" content="notranslate" />
+    <script type="text/javascript">
+      var nocanvas = false; //if there isn't any canvas support strip it out
+
+      /* Detecte IE ver */
+
+      function getInternetExplorerVersion() {
+        // Returns the version of Internet Explorer or a -1
+        // (indicating the use of another browser).
+        var rv = -1; // Return value assumes failure.
+        if (navigator.appName == "Microsoft Internet Explorer") {
+          var ua = navigator.userAgent;
+          var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+          if (re.exec(ua) != null) rv = parseFloat(RegExp.$1);
+        }
+        return rv;
+      }
+
+      var surveytake_domain = "https://www.painpool.de/app/survey";
+      var iever = getInternetExplorerVersion();
+
+      //Detect vanvas & todataurl support
+
+      function supports_canvas() {
+        return !!document.createElement("canvas").getContext;
+      }
+
+      function supportsToDataURL() {
+        if (!supports_canvas()) {
+          return false;
+        }
+
+        var c = document.createElement("canvas");
+        var data = c.toDataURL("image/png");
+        return data.indexOf("data:image/png") == 0;
+      }
+
+      if (!supportsToDataURL() && iever != 9) {
+        nocanvas = true;
+      }
+
+      var surveytake_domain = "https://www.painpool.de/app/survey";
+      function t() {
+        var time = new Date();
+        return time.getTime();
+      }
+
+      var s = t();
+      var humanbig = false;
+    </script>
+
+    <script
+      src="https://www.painpool.de/app/_js/_libraries/jquery-1.7.1.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://www.painpool.de/app/_js/_libraries/jquery-ui-1.8.17.custom.min.js"
+      type="text/javascript"
+    ></script>
+
+    <script
+      src="https://www.painpool.de/app/_js/_survey/cfe.js?20240904"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://www.painpool.de/app/_js/_survey/jquery.maskedinput.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://www.painpool.de/app/_js/_survey/surveytake.js?20240904"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://www.painpool.de/app/_js/_libraries/languages.js.php?20240904"
+      type="text/javascript"
+    ></script>
+
+    <script
+      src="https://www.painpool.de/app/_js/_survey/multi.js?20240904"
+      type="text/javascript"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://www.painpool.de/app/_templates/_survey/main/styles/new.css?20240904"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.painpool.de/app/_templates/_survey/main/styles/loading.css?20240904"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.painpool.de/app/_templates/_survey/main/styles/cfe.css?20240904"
+      type="text/css"
+      media="all"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://www.painpool.de/app/_templates/_survey/main/styles/painpool-hack.css?20240904"
+      type="text/css"
+      media="all"
+    />
+
+    <!--Custom styles for survey: 140-->
+    <!--<link rel="stylesheet" href="https://www.painpool.de/app/_templates/_survey/main/styles/custom_forid_140.css" type="text/css" media="all" />-->
+
+    <!-- CSS grabbed from survey settings -->
+    <style type="text/css">
+      .klein {
+        font-size: 10px !important;
+        text-align: right !important;
+      }
+
+      @media screen and (max-width: 500px) {
+        .main-wrapper.pp-block-center.pp-content-body.pp-white.pp-box-shadow-5-25.pp-rounded-bottom-3 {
+          background: #ffffff;
+          border-radius: 3px;
+        }
+
+        .buttons-wrapper.pp-max-width-800.pp-push-top-10.pp-block-center.pp-clearfix {
+          position: relative;
+        }
+
+        #abort_c {
+          position: absolute;
+          margin: 0;
+          margin-top: 60px;
+          margin-bottom: 30px;
+          width: 100%;
+        }
+
+        #abort_c > a#abort {
+          width: 100% !important;
+          word-break: break-word;
+          line-height: 26px !important;
+          font-size: 15px !important;
+          height: 55px !important;
+          box-sizing: border-box;
+          padding-top: 15px;
+          padding-left: 15px;
+          padding-right: 15px;
+          margin-top: 5px;
+        }
+
+        a#next,
+        a#previous {
+          font-size: 15px !important;
+          margin-left: 0 !important;
+          height: 55px !important;
+          line-height: 55px !important;
+        }
+
+        .human_new_table {
+          width: 100%;
+          position: relative;
+        }
+
+        .human_new_table > tbody > tr > td:first-child {
+          padding-top: 300px !important;
+        }
+        #humansvgc {
+          width: 100%;
+          position: absolute;
+          left: -25px;
+        }
+        h3.qtitle {
+          font-size: 16px;
+        }
+        .qtitle {
+          font-size: 16px;
+        }
+        input[type="text"].pp-input,
+        input[type="number"] {
+          font-size: 16px;
+        }
+
+        table.qtable td textarea {
+          font-size: 16px;
+        }
+        .matrix-answer .matrix_inputs_buttons {
+          font-size: 16px;
+        }
+        table.matrix-answer tr td,
+        table.matrix-answer tr th {
+          font-size: 16px;
+        }
+        table.qtable-nb .description-wrapper {
+          font-size: 16px;
+        }
+        table.qtable {
+          font-size: 16px;
+        }
+      }
+      @media screen and (max-width: 550px) {
+        table.matrix-answer tr.tr-answer th.row {
+          padding: 5px !important;
+          font-size: 10px;
+        }
+        table.matrix-answer tr:first-child th.col {
+          font-size: 10px;
+        }
+        table.qtable td {
+          padding: 5px !important;
+        }
+        table.matrix-answer::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 30px;
+          height: 100%;
+          pointer-events: none;
+          background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 1)
+          );
+        }
+      }
+    </style>
+
+    <script type="text/javascript">
+      var question_types = {};
+      var answers = {};
+      var real_rows_no = {};
+      var humanbig = false;
+      var c = "qbdy";
+    </script>
+  </head>
+
+  <body class="loading pp-light-blue-gr pp-pull-left">
+    <div class="loadanim"></div>
+    <div id="wrapper">
+      <div id="header"></div>
+      <div id="edit-lock"></div>
+      <div
+        class="
+          main-wrapper
+          pp-block-center
+          pp-content-body
+          pp-white
+          pp-box-shadow-5-7
+          pp-rounded-top-3
+          pp-push-top-10
+        "
+      >
+        <div
+          class="
+            progressbar-wrapper
+            pp-padding-left-45
+            pp-padding-right-45
+            pp-padding-top-20
+            pp-padding-bottom-20
+          "
+        >
+          <div
+            class="
+              pp-rounded-all-2
+              pp-progressbar
+              pp-overflow-hidden
+              pp-box-shadow-5-75
+              pp-blue-border
+              pp-light-gray
+            "
+          >
+            <div
+              class="pp-light-blue-gr pp-progressbar-indicator"
+              id="progress"
+              style="width: 100%; display: block"
+            >
+              <div id="progress-bar" style="width: 24%">&nbsp;</div>
+              <!-- preloader proggress -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form id="s-" class="s-form" method="post" action="">
+        <input type="hidden" name="t" value="" />
+
+        <div
+          class="
+            main-wrapper
+            pp-block-center
+            pp-content-body
+            pp-white
+            pp-box-shadow-5-25
+            pp-rounded-bottom-3
+          "
+        >
+          <input type="hidden" name="submitted" value="1" /><input
+            type="hidden"
+            name="from"
+            value=""
+          />
+          <script type="text/javascript">
+            question_types[2531] = {};
+            question_types[2531] = {
+              type: "matrix_mradio",
+              qtext:
+                "Mit der folgenden Liste von Eigenschaftsworten können Sie genauer beschreiben, wie Sie Ihre Schmerzen empfinden. Denken Sie bei der Beantwortung an Ihre typischen Schmerzen in der letzten Zeit. Bitte lassen Sie keine der Beschreibungen aus und machen Sie für jedes Wort ein Kreuz, inwieweit die  Aussage für Sie zutrifft.",
+            };
+
+            question_types[2532] = {};
+            question_types[2532] = {
+              type: "matrix_mradio",
+              qtext:
+                "Bitte beschreiben Sie auch hier anhand der Eigenschaftsworte, wie Sie Ihre Schmerzen empfinden. Denken Sie bei der Beantwortung an Ihre typischen Schmerzen in der letzten Zeit. Bitte lassen Sie keine der Beschreibungen aus und machen Sie für jedes Wort ein Kreuz, inwieweit die  Aussage für Sie zutrifft.",
+            };
+
+            question_types[8941] = {};
+            question_types[8941] = {
+              type: "html-ne",
+              qtext: " ",
+            };
+            answers[2346] = ["1", "-1", "-1", "1", "-1", "-1", "1"];
+            answers[2353] = ["awdasd"];
+            answers[2534] = ["4"];
+            answers[2529] = ["1"];
+            answers[2337] = [
+              "qwdad",
+              "qwe",
+              "qwe",
+              "asd",
+              "asd",
+              "asd",
+              "awd",
+              "adw",
+              "aawd",
+              "awddasd",
+              "awd",
+              "asd",
+              "awd",
+              "qwdaw",
+              "dwd",
+            ];
+            answers[2533] = ["12"];
+            answers[2531] = ["2", "1", "1", "1", "1", "2"];
+            answers[2532] = ["2", "3", "2", "3", "2", "3"];
+            answers[2341] = ["3", "3", "3", "3", "3"];
+            answers[2342] = ["1", "1", "1", "1", "1"];
+            answers[2343] = ["1", "1", "1", "1", "1"];
+            answers[2344] = ["2", "2", "1", "2", "1", "2"];
+            answers[11778] = ["1"];
+            answers[11779] = ["6"];
+            answers[2354] = ["3"];
+            answers[2526] = ["1"];
+          </script>
+          <table
+            class="qtable qtable_matrix_mradio"
+            data-id="2531"
+            id="qc_DSF_10"
+            style="width: 100%"
+          >
+            <tr>
+              <th
+                class="
+                  maintitle-wrapper
+                  pp-dark-green
+                  pp-padding-top-20
+                  pp-padding-bottom-20
+                  pp-padding-left-45
+                "
+              >
+                <h1
+                  class="qtitle qtitle_matrix_mradio pp-text-white"
+                  id="qtitle_DSF_10"
+                >
+                  Mit der folgenden Liste von Eigenschaftsworten können Sie
+                  genauer beschreiben, <b>wie Sie Ihre Schmerzen empfinden</b>.
+                  Denken Sie bei der Beantwortung an Ihre
+                  <b>typischen Schmerzen in der letzten Zeit</b>. Bitte lassen
+                  Sie keine der Beschreibungen aus und machen Sie
+                  <b>für jedes Wort ein Kreuz</b>, inwieweit die Aussage für Sie
+                  zutrifft. <span class="qreq" id="qreq_DSF_10">*</span>
+                </h1>
+              </th>
+            </tr>
+            <input type="hidden" value="2531" class="required" />
+            <tr>
+              <td>
+                <table
+                  class="
+                    matrix-answer
+                    ma_DSF_10
+                    pp-hidden-but-measurable pp-full-table
+                  "
+                  cellspacing="0"
+                >
+                  <tr>
+                    <th></th>
+                    <th class="col th_col_DSF_10_1">trifft genau zu</th>
+                    <th class="col th_col_DSF_10_2">trifft weitgehend zu</th>
+                    <th class="col th_col_DSF_10_3">trifft ein wenig zu</th>
+                    <th class="col th_col_DSF_10_4">trifft nicht zu</th>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_1">
+                    <th class="row th_row_DSF_10_1">....dumpf</th>
+                    <td class="td_DSF_10_1_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_1_1
+                          rr_2531_1
+                          rc_2531_1
+                          req_2531
+                        "
+                        id="ans_2531_1_1"
+                        type="radio"
+                        name="answer[2531][1_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_1_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_1_2
+                          rr_2531_1
+                          rc_2531_2
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_1_2"
+                        type="radio"
+                        name="answer[2531][1_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_1_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_1_3
+                          rr_2531_1
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_1_3"
+                        type="radio"
+                        name="answer[2531][1_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_1_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_1_4
+                          rr_2531_1
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_1_4"
+                        type="radio"
+                        name="answer[2531][1_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_2">
+                    <th class="row th_row_DSF_10_2">....drückend</th>
+                    <td class="td_DSF_10_2_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_2_1
+                          rr_2531_2
+                          rc_2531_1
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_2_1"
+                        type="radio"
+                        name="answer[2531][2_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_2_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_2_2
+                          rr_2531_2
+                          rc_2531_2
+                          req_2531
+                        "
+                        id="ans_2531_2_2"
+                        type="radio"
+                        name="answer[2531][2_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_2_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_2_3
+                          rr_2531_2
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_2_3"
+                        type="radio"
+                        name="answer[2531][2_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_2_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_2_4
+                          rr_2531_2
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_2_4"
+                        type="radio"
+                        name="answer[2531][2_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_3">
+                    <th class="row th_row_DSF_10_3">….pochend</th>
+                    <td class="td_DSF_10_3_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_3_1
+                          rr_2531_3
+                          rc_2531_1
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_3_1"
+                        type="radio"
+                        name="answer[2531][3_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_3_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_3_2
+                          rr_2531_3
+                          rc_2531_2
+                          req_2531
+                        "
+                        id="ans_2531_3_2"
+                        type="radio"
+                        name="answer[2531][3_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_3_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_3_3
+                          rr_2531_3
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_3_3"
+                        type="radio"
+                        name="answer[2531][3_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_3_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_3_4
+                          rr_2531_3
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_3_4"
+                        type="radio"
+                        name="answer[2531][3_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_4">
+                    <th class="row th_row_DSF_10_4">….klopfend</th>
+                    <td class="td_DSF_10_4_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_4_1
+                          rr_2531_4
+                          rc_2531_1
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_4_1"
+                        type="radio"
+                        name="answer[2531][4_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_4_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_4_2
+                          rr_2531_4
+                          rc_2531_2
+                          req_2531
+                        "
+                        id="ans_2531_4_2"
+                        type="radio"
+                        name="answer[2531][4_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_4_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_4_3
+                          rr_2531_4
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_4_3"
+                        type="radio"
+                        name="answer[2531][4_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_4_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_4_4
+                          rr_2531_4
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_4_4"
+                        type="radio"
+                        name="answer[2531][4_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_5">
+                    <th class="row th_row_DSF_10_5">….stechend</th>
+                    <td class="td_DSF_10_5_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_5_1
+                          rr_2531_5
+                          rc_2531_1
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_5_1"
+                        type="radio"
+                        name="answer[2531][5_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_5_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_5_2
+                          rr_2531_5
+                          rc_2531_2
+                          req_2531
+                        "
+                        id="ans_2531_5_2"
+                        type="radio"
+                        name="answer[2531][5_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_5_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_5_3
+                          rr_2531_5
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_5_3"
+                        type="radio"
+                        name="answer[2531][5_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_5_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_5_4
+                          rr_2531_5
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_5_4"
+                        type="radio"
+                        name="answer[2531][5_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                  <tr class="tr-answer tr_DSF_10_6">
+                    <th class="row th_row_DSF_10_6">....ziehend</th>
+                    <td class="td_DSF_10_6_1 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_6_1
+                          rr_2531_6
+                          rc_2531_1
+                          req_2531
+                        "
+                        id="ans_2531_6_1"
+                        type="radio"
+                        name="answer[2531][6_1]"
+                        value="1"
+                      />
+                    </td>
+                    <td class="td_DSF_10_6_2 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_6_2
+                          rr_2531_6
+                          rc_2531_2
+                          req_2531
+                        "
+                        checked="checked"
+                        id="ans_2531_6_2"
+                        type="radio"
+                        name="answer[2531][6_2]"
+                        value="2"
+                      />
+                    </td>
+                    <td class="td_DSF_10_6_3 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_6_3
+                          rr_2531_6
+                          rc_2531_3
+                          req_2531
+                        "
+                        id="ans_2531_6_3"
+                        type="radio"
+                        name="answer[2531][6_3]"
+                        value="3"
+                      />
+                    </td>
+                    <td class="td_DSF_10_6_4 td_matrix_mradio">
+                      <input
+                        class="
+                          styled
+                          qt_matrix_mradio
+                          qid_2531
+                          cell_6_4
+                          rr_2531_6
+                          rc_2531_4
+                          req_2531
+                        "
+                        id="ans_2531_6_4"
+                        type="radio"
+                        name="answer[2531][6_4]"
+                        value="4"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <br />
+        </div>
+
+        <div
+          class="
+            buttons-wrapper
+            pp-max-width-800 pp-push-top-10 pp-block-center pp-clearfix
+          "
+        >
+          <!-- <div id="previous_c"><a	href="https://www.painpool.de/app/survey/e/c/qbdy?j=nMg&dir=p&sid=ZR&sc=113dfa728619522e" class="cmd" id="previous">&lt;&lt;Zurück</a></div>-->
+          <div id="previous_c">
+            <a
+              id="previous"
+              class="
+                cmd
+                pp-btn
+                pp-pull-left
+                pp-push-left-5
+                pp-push-bottom-10
+                pp-btn-dark-blue
+                pp-rounded-all-3
+              "
+              href="https://www.painpool.de/app/survey/e/c/qbdy?j=nMg&dir=p&sid=ZR&sc=113dfa728619522e"
+              ><span class="pp-icon pp-icon-left"><!-- left icon --></span
+              >Zurück</a
+            >
+          </div>
+
+          <!-- <div id="next_c"><a href="#" class="cmd" id="next">Weiter &gt;&gt;</a></div> -->
+          <div id="next_c">
+            <a
+              id="next"
+              class="
+                cmd
+                pp-btn
+                pp-pull-right
+                pp-push-right-5
+                pp-push-bottom-10
+                pp-btn-dark-blue
+                pp-rounded-all-3
+              "
+              href="#"
+              ><span class="pp-icon pp-icon-right"><!-- left icon --></span
+              >Weiter</a
+            >
+          </div>
+
+          <div class="pp-gray-line pp-box-shadow-2-43 pp-clearer">
+            <!-- shadow separator -->
+          </div>
+        </div>
+      </form>
+
+      <br clear="all" />
+
+      <!-- 0.28912997245789 -->
+    </div>
+    <!-- /wrapper -->
+    <!--<div id="out">Time: </div>-->
+    <!--<script type="text/javascript">-->
+    <!--$('#out').append( (t()-s) +'ms');-->
+    <!--</script>-->
+  </body>
+</html>
